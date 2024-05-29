@@ -150,7 +150,6 @@ def load_data(ds_name, ds_variant, fillnan=None, batch_size=64, threshold=0.2):
 
 if __name__ == "__main__":
     utils.seed_all(123456)
-    os.environ["WANDB_API_KEY"] = "43fd1443427b4cd3b65de44e599483daa7a7dc2b"
 
     parser = argparse.ArgumentParser()
 
