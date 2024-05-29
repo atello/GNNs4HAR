@@ -165,7 +165,6 @@ def test_one_epoch(loader, model, criterion, device=torch.device("cpu")):
 
 if __name__ == "__main__":
     utils.seed_all(123456)
-    os.environ["WANDB_API_KEY"] = "43fd1443427b4cd3b65de44e599483daa7a7dc2b"
 
     parser = argparse.ArgumentParser()
     """
