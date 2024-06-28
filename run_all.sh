@@ -17,7 +17,7 @@ python3 activity_graph_classification.py --epochs=500 --ds_name=PAMAP2 --ds_vari
 python3 activity_graph_classification.py --epochs=500 --ds_name=PAMAP2 --ds_variant=corrcoef_all --fillnan=interpolate --model_name=mpool --aggr=add --batch_size=64 --classifier_dropout=0.4 --conv_dropout=0.4 --hidden_dim=128 --input_dim=512 --lr=0.00247 --num_layers=3 --out_dim=12 --w_decay=0.000997 --patience_tr=100 --log_wandb
 #python3 activity_graph_classification.py --epochs=500 --ds_name=PAMAP2 --ds_variant=corrcoef_all --fillnan=interpolate --model_name=mpool --aggr=max --batch_size=64 --classifier_dropout=0.3 --conv_dropout=0.4 --hidden_dim=128 --input_dim=512 --lr=0.00256 --num_layers=3 --out_dim=12 --w_decay=0.0004 --patience_tr=100 --log_wandb
 
-python3 activity_graph_classification.py --epohs=500 -c-ds_name=REALDISP --ds_variant=corrcoef_all --model_name=graphconv --aggr=max --batch_size=64 --classifier_dropout=0.3 --conv_dropout=0.1 --global_pooling=max --hidden_dim=128 --input_dim=128 --lr=0.00417 --num_layers=3 --out_dim=10 --w_decay=0.000355 --patience_tr=100 --batch_norm --log_wandb
+python3 activity_graph_classification.py --epochs=500 --ds_name=REALDISP --ds_variant=corrcoef_all --model_name=graphconv --aggr=max --batch_size=64 --classifier_dropout=0.3 --conv_dropout=0.1 --global_pooling=max --hidden_dim=128 --input_dim=128 --lr=0.00417 --num_layers=3 --out_dim=10 --w_decay=0.000355 --patience_tr=100 --batch_norm --log_wandb
 python3 activity_graph_classification.py --epochs=500 --ds_name=REALDISP --ds_variant=corrcoef_win --model_name=graphconv --aggr=max --batch_size=64 --classifier_dropout=0 --conv_dropout=0.3 --global_pooling=max --hidden_dim=64 --input_dim=128 --lr=0.00247 --num_layers=3 --out_dim=10 --w_decay=0.000705 --patience_tr=100 --batch_norm --log_wandb
 
 
@@ -92,3 +92,27 @@ python3 model_explainer.py --ds_name=MHEALTH --ds_variant=corrcoef_all --model_n
 python3 model_explainer.py --ds_name=UCIHAR --ds_variant=corrcoef_all --model_name=gat2 --aggr=add --batch_size=64 --classifier_dropout=0.5 --conv_dropout=0.3 --global_pooling=mean --heads=4 --hidden_dim=64 --input_dim=128 --lr=0.00188 --num_layers=3 --out_dim=6 --w_decay=0.000233 --batch_norm --postfix=20240216_012051
 python3 model_explainer.py --ds_name=UCIHAR --ds_variant=corrcoef_all --model_name=graphconv --aggr=add --batch_size=64 --classifier_dropout=0.2 --conv_dropout=0.0 --global_pooling=max --hidden_dim=64 --input_dim=128 --lr=0.00244 --num_layers=3 --out_dim=6 --w_decay=0.00058 --batch_norm --postfix=20240216_012344
 python3 model_explainer.py --ds_name=PAMAP2 --ds_variant=corrcoef_allv2 --fillnan=interpolate --model_name=graphconv --aggr=mean --batch_size=64 --classifier_dropout=0.5 --conv_dropout=0.4 --global_pooling=max --hidden_dim=256 --input_dim=512 --lr=0.00263 --num_layers=3 --out_dim=12 --w_decay=0.000576 --postfix=20240307_142443
+
+
+
+##### BASELINES
+python3 bsln_CNN_LSTM.py --epochs=500 --ds_name=PAMAP2 --ds_variant=ts_data --model_name=DeepConvLSTM --batch_size=64 --dropout=0.5 --hidden_dim=128 --input_dim=27 --lr=0.001 --out_dim=12 --patience_tr=100 --win_size=512 --step=100 --log_wandb
+python3 bsln_CNN_LSTM.py --epochs=500 --ds_name=MHEALTH --ds_variant=ts_data --model_name=DeepConvLSTM --batch_size=64 --dropout=0.5 --hidden_dim=128 --input_dim=21 --lr=0.001 --out_dim=12 --patience_tr=100 --win_size=128 --step=64 --log_wandb
+python3 bsln_CNN_LSTM.py --epochs=500 --ds_name=UCIHAR --ds_variant=ts_data --model_name=DeepConvLSTM --batch_size=64 --dropout=0.5 --hidden_dim=128 --input_dim=9 --lr=0.001 --out_dim=6 --patience_tr=100 --win_size=128 --step=64 --log_wandb
+python3 bsln_CNN_LSTM.py --epochs=500 --ds_name=REALDISP --ds_variant=ts_data --model_name=DeepConvLSTM --batch_size=64 --dropout=0.5 --hidden_dim=128 --input_dim=81 --lr=0.001 --out_dim=10 --patience_tr=100 --win_size=128 --step=64 --log_wandb
+
+python3 bsln_CNN_LSTM.py --epochs=500 --ds_name=PAMAP2 --ds_variant=ts_data --model_name=CNN --batch_size=64 --dropout=0.5 --hidden_dim=128 --input_dim=27 --lr=0.0001 --out_dim=12 --patience_tr=100 --win_size=512 --step=100 --log_wandb
+python3 bsln_CNN_LSTM.py --epochs=500 --ds_name=MHEALTH --ds_variant=ts_data --model_name=CNN --batch_size=64 --dropout=0.5 --hidden_dim=128 --input_dim=21 --lr=0.0001 --out_dim=12 --patience_tr=100 --win_size=128 --step=64 --log_wandb
+python3 bsln_CNN_LSTM.py --epochs=500 --ds_name=UCIHAR --ds_variant=ts_data --model_name=CNN --batch_size=64 --dropout=0.5 --hidden_dim=128 --input_dim=9 --lr=0.0001 --out_dim=6 --patience_tr=100 --win_size=128 --step=64 --log_wandb
+python3 bsln_CNN_LSTM.py --epochs=500 --ds_name=REALDISP --ds_variant=ts_data --model_name=CNN --batch_size=64 --dropout=0.5 --hidden_dim=128 --input_dim=81 --lr=0.0001 --out_dim=10 --patience_tr=100 --win_size=128 --step=64 --log_wandb
+
+python3 bsln_CNN_LSTM.py --epochs=500 --ds_name=PAMAP2 --ds_variant=ts_data --model_name=2LSTM --batch_size=64 --hidden_dim=128 --input_dim=27 --lr=0.0004755 --out_dim=12 --patience_tr=100 --win_size=512 --step=100 --log_wandb
+python3 bsln_CNN_LSTM.py --epochs=500 --ds_name=MHEALTH --ds_variant=ts_data --model_name=2LSTM --batch_size=64 --hidden_dim=128 --input_dim=21 --lr=0.0004755 --out_dim=12 --patience_tr=100 --win_size=128 --step=64 --log_wandb
+python3 bsln_CNN_LSTM.py --epochs=500 --ds_name=UCIHAR --ds_variant=ts_data --model_name=2LSTM --batch_size=64 --hidden_dim=128 --input_dim=9 --lr=0.0004755 --out_dim=6 --patience_tr=100 --win_size=128 --step=64 --log_wandb
+python3 bsln_CNN_LSTM.py --epochs=500 --ds_name=REALDISP --ds_variant=ts_data --model_name=2LSTM --batch_size=64 --hidden_dim=128 --input_dim=81 --lr=0.0004755 --out_dim=10 --patience_tr=100 --win_size=128 --step=64 --log_wandb
+
+python3 bsln_CNN_LSTM.py --epochs=500 --ds_name=PAMAP2 --ds_variant=ts_data --model_name=CNNLSTM4L --batch_size=64 --hidden_dim=128 --input_dim=27 --lr=0.0004755 --out_dim=12 --patience_tr=100 --win_size=512 --step=100 --log_wandb
+python3 bsln_CNN_LSTM.py --epochs=500 --ds_name=MHEALTH --ds_variant=ts_data --model_name=CNNLSTM4L --batch_size=64 --hidden_dim=128 --input_dim=21 --lr=0.0004755 --out_dim=12 --patience_tr=100 --win_size=128 --step=64 --log_wandb
+python3 bsln_CNN_LSTM.py --epochs=500 --ds_name=UCIHAR --ds_variant=ts_data --model_name=CNNLSTM4L --batch_size=64 --hidden_dim=128 --input_dim=9 --lr=0.0004755 --out_dim=6 --patience_tr=100 --win_size=128 --step=64 --log_wandb
+python3 bsln_CNN_LSTM.py --epochs=500 --ds_name=REALDISP --ds_variant=ts_data --model_name=CNNLSTM4L --batch_size=64 --hidden_dim=128 --input_dim=81 --lr=0.0004755 --out_dim=10 --patience_tr=100 --win_size=128 --step=64 --log_wandb
+

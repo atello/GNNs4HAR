@@ -7,7 +7,7 @@ from torch_geometric.loader import DataLoader
 import numpy as np
 
 from pamap2_dataset import Pamap2Dataset
-from utils import utils
+import utils
 
 logging.basicConfig(level=logging.NOTSET)
 
@@ -18,7 +18,7 @@ if __name__ == "__main__":
 
     dataset = Pamap2Dataset(root='data/PAMAP2/corrcoef_all', variant="corrcoef_all", fillnan="interpolate", activity=ACTIVITY)
 
-    train = DataLoader(dataset[dataset.train_mask], batch_size=64, shuffle=False)
+    train = DataLoader(dataset[dataset.train_mask], batch_size=64, shuffle=True)
     val = DataLoader(dataset[dataset.val_mask], batch_size=64, shuffle=False)
     test = DataLoader(dataset[dataset.test_mask], batch_size=64, shuffle=False)
 

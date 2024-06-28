@@ -292,6 +292,8 @@ if __name__ == "__main__":
     print(model)
     print("Model parameters: ", sum(p.numel() for p in model.parameters()))
 
+    exit(0)
+
     if args.use_sgd:
         optimizer = torch.optim.SGD(model.parameters(), lr=args.lr, weight_decay=args.w_decay)
     else:

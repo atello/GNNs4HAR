@@ -1,5 +1,6 @@
 import logging
 import os
+import pickle
 from copy import deepcopy
 from tqdm import tqdm
 import pandas as pd
@@ -207,3 +208,49 @@ def load_preprocessed_data(raw_data_path, **kwargs):
         ret = graphs
 
     return ret, stats
+
+
+def get_ts_data(raw_data_path, preproc_data_file, win_size, step, train_subjects, val_subjects, test_subjects):
+
+    if os.path.isfile(preproc_data_file):
+        print("loading pre-processed data file")
+        ts_data = pickle.load(open(preproc_data_file, 'rb'))
+        x_train = ts_data["x_train"]
+        x_val = ts_data["x_val"]
+        x_test = ts_data["x_test"]
+        y_train = ts_data["y_train"]
+        y_val = ts_data["y_val"]
+        y_test = ts_data["y_test"]
+    else:
+        X, y, splits, stats = load_data(raw_data_path)
+        X_win, y_win, groups = create_samples_windows(X, y, window_size=win_size, step=step)
+
+        train_mask = np.in1d(groups, train_subjects)
+        val_mask = np.in1d(groups, val_subjects)
+        test_mask = np.in1d(groups, test_subjects)
+
+        x_train = X_win[train_mask]
+        x_val = X_win[val_mask]
+        x_test = X_win[test_mask]
+
+        y_train = y_win[train_mask]
+        y_val = y_win[val_mask]
+        y_test = y_win[test_mask]
+
+        ts_data = {
+            "x_train": x_train,
+            "x_val": x_val,
+            "x_test": x_test,
+            "y_train": y_train,
+            "y_val": y_val,
+            "y_test": y_test
+        }
+
+        torch.save(ts_data, preproc_data_file)
+
+        pickle.dump(
+            obj=ts_data,
+            file=open(preproc_data_file, 'wb')
+        )
+
+    return x_train, x_val, x_test, y_train, y_val, y_test
