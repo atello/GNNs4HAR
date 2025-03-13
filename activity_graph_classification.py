@@ -180,8 +180,6 @@ if __name__ == "__main__":
         print(model)
         print("Model parameters: ", sum(p.numel() for p in model.parameters()))
 
-        exit(0)
-
         train_loader, val_loader, test_loader = load_data(ds_name=args.ds_name,
                                                           variant=args.ds_variant,
                                                           fillnan=args.fillnan,
